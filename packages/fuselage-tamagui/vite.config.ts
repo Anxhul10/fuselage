@@ -1,17 +1,31 @@
+import path from 'path'
 import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite'
 import { tamaguiPlugin } from '@tamagui/vite-plugin'
 
-export default {
+export default defineConfig({
   plugins: [
     react(),
     tamaguiPlugin({
-      // points to your tamagui config file
-      config: 'tamagui.config.ts',
-      // points to any linked packages or node_modules
-      // that have tamagui components to optimize
+      config: './tamagui.config.ts',
       components: ['tamagui'],
-      // turns on the optimizing compiler
       optimize: true,
     }),
-  ].filter(Boolean),
-}
+  ],
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, 'src/index.ts'), // or .tsx depending on your entry
+      name: 'FuselageTamagui',
+      fileName: (format) => `fuselage-tamagui.${format}.js`,
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom', 'tamagui'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    },
+  },
+})
