@@ -24,7 +24,7 @@
   },
   "type": "module",
   "files": [
-    "dist",
+    "/dist/*",
     "/breakpoints.*",
     "/colors.*",
     "/typography.*"
