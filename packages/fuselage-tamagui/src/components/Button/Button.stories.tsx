@@ -1,6 +1,7 @@
 // import type { Meta, StoryObj } from "@storybook/react";
 import type { Meta } from "@storybook/react";
 import {Button} from 'tamagui';
+// import {Button} from './Button';
 import type { StoryFn} from '@storybook/react';
 // import {ZButton,ButtonText,ButtonIcon} from './CustomButton';
 // import {Spinner,XStack,YStack,Anchor, ButtonFrame,Button as TamaguiButton} from 'tamagui';
@@ -31,7 +32,7 @@ export default meta;
 //   },
 // };
 export const Default: StoryFn<typeof Button> = () => {
-  return <Button >Click me</Button>
+  return <Button borderRadius="$1" label="Button" outlined >click me</Button>
 };
 // export const Default: StoryFn<typeof ZButton> = () => {
 //   return <ZButton borderRadius="$1" label="Button" outlined ><ButtonText outline>Button</ButtonText></ZButton>

@@ -1,226 +1,523 @@
-// // import { getSize, getSpace } from '@tamagui/core';
+// import { getFontSize } from '@tamagui/font-size'
+// import { getButtonSized } from '@tamagui/get-button-sized'
+// import { withStaticProperties } from '@tamagui/helpers'
+// import { useGetThemedIcon } from '@tamagui/helpers-tamagui'
+// import { ButtonNestingContext, ThemeableStack } from '@tamagui/stacks'
+// import type { TextContextStyles, TextParentStyles } from '@tamagui/text'
+// import { SizableText, wrapChildrenInText } from '@tamagui/text'
+// import type { FontSizeTokens, GetProps, SizeTokens, ThemeableProps } from '@tamagui/web'
 // import {
-//     View,
-//     createStyledContext,
-//     styled,
-//     withStaticProperties,
-//   } from '@tamagui/core';
-//   import { cloneElement, isValidElement } from 'react';
-  
-// //   import { Typography } from './Typography';
-  
-//   export const ButtonContext = createStyledContext({
-//     size: '',
-//   });
-  
-//   const withRectangularSize = (
-//     height: number,
-//     paddingX: number,
-//     lineHeight: number,
-//   ) => ({
-//     minWidth: height * 2,
-//     height,
-//     padding: height - lineHeight,
-//     paddingInline: paddingX,
-//   });
-  
-//   const withSquaredSize = (size: number) => ({
-//     width: size,
-//     minWidth: size,
-//     height: size,
-//     padding: 0,
-//   });
-  
-//   // @mixin with-squared-size($size) {
-//   //   width: lengths.size($size);
-//   //   min-width: lengths.size($size);
-//   //   height: lengths.size($size);
-//   //   padding: 0;
-  
-//   //   &::before,
-//   //   &::after {
-//   //     display: inline-block;
-  
-//   //     height: 100%;
-  
-//   //     content: '';
-//   //   }
-//   // }
-//   // @mixin with-rectangular-size($height, $padding-x, $line-height) {
-//   //   min-width: calc(lengths.size($height) * 2);
-//   //   height: lengths.size($height);
-//   //   padding: calc((lengths.padding($height) - $line-height) / 2 - 2px)
-//   //     calc(lengths.padding($padding-x) - 2px);
-//   //   padding-block: calc((lengths.padding($height) - $line-height) / 2 - 2px);
-  
-//   //   padding-inline: calc(lengths.padding($padding-x) - 2px);
-//   // }
-  
-//   export const ButtonFrame = styled(View, {
-//     name: 'Button',
-//     focusable: true,
-//     alignItems: 'center',
-//     flexDirection: 'row',
-//     cursor: 'pointer',
-//     borderWidth: 1,
-//     backgroundColor: '#353B45', 
-//     borderRadius: '$1',
-  
-//     variants: {
-//       'warning-primary': {
-//         true: {
-//           backgroundColor: '$button-backgroundPrimaryWarningDefault',
-//           hoverStyle: {
-//             backgroundColor: '$button-backgroundPrimaryWarningHover',
-//           },
-//           pressStyle: {
-//             backgroundColor: '$button-backgroundPrimaryWarningPress',
-//           },
-//         },
-//       },
-//       'warning-secondary': {
-//         true: {
-//           backgroundColor: '$button-backgroundSecondaryWarningDefault',
-//           hoverStyle: {
-//             backgroundColor: '$button-backgroundSecondaryWarningHover',
-//           },
-//           pressStyle: {
-//             backgroundColor: '$button-backgroundSecondaryWarningPress',
-//           },
-//         },
-//       },
-//       'danger-primary': {
-//         true: {
-//           backgroundColor: '$button-backgroundDangerDefault',
-//           hoverStyle: {
-//             backgroundColor: '$button-backgroundDangerHover',
-//           },
-//           pressStyle: {
-//             backgroundColor: '$button-backgroundDangerPress',
-//           },
-//         },
-//       },
-//       'danger-secondary': {
-//         true: {
-//           backgroundColor: '$button-backgroundSecondaryDangerDefault',
-//           hoverStyle: {
-//             backgroundColor: '$button-backgroundSecondaryDangerHover',
-//           },
-//           pressStyle: {
-//             backgroundColor: '$button-backgroundSecondaryDangerPress',
-//           },
-//         },
-//       },
-//       'secondary': {
-//         true: {
-//           backgroundColor: '$button-backgroundSecondaryDefault',
-//           hoverStyle: {
-//             backgroundColor: '$button-backgroundSecondaryHover',
-//           },
-//           pressStyle: {
-//             backgroundColor: '$button-backgroundSecondaryPress',
-//           },
-//         },
-//       },
-//       'primary': {
-//         true: {
-//           backgroundColor: '$button-backgroundPrimaryDefault',
-//           hoverStyle: {
-//             backgroundColor: '$button-backgroundPrimaryHover',
-//           },
-//           pressStyle: {
-//             backgroundColor: '$button-backgroundPrimaryPress',
-//           },
-//         },
-//       },
-  
-//       'size': {
-//         'square': {
-//           ...withSquaredSize(32),
-//         },
-//         'square-mini': {
-//           ...withSquaredSize(24),
-//         },
-//         'square-tiny': {
-//           ...withSquaredSize(20),
-//         },
-//         'square-medium': {
-//           ...withSquaredSize(40),
-//         },
-//         'square-large': {
-//           ...withSquaredSize(48),
-//         },
-//         'small': {
-//           ...withRectangularSize(28, 8, 28),
-//         },
-//         'medium': {
-//           ...withRectangularSize(32, 16, 32),
-//         },
-//         'large': {
-//           ...withRectangularSize(40, 24, 40),
-//         },
-//       },
-//     },
-//     defaultVariants: {
-//       size: 'medium',
-//     },
-//   } as const);
-  
-//   // export type ButtonProps = GetProps<typeof ButtonFrame>;
-  
-//   export const ButtonText = styled(Typography, {
-//     name: 'ButtonText',
-//     context: ButtonContext,
-//     userSelect: 'none',
-//     color: 'white',
-//     defaultVariants: {
-//       size: 'p2m',
-//     },
-//   } as const);
-  
-//   export type ButtonProps = {
-//     primary?: boolean;
-//     secondary?: boolean;
-//     danger?: boolean;
-//     warning?: boolean;
-//     success?: boolean;
-//     disabled?: boolean;
-//     loading?: boolean;
-//     mini?: boolean;
-//     tiny?: boolean;
-//     small?: boolean;
-//     medium?: boolean;
-//     large?: boolean;
-//     square?: boolean;
-//     external?: boolean;
-//     // icon?: ComponentProps<typeof Icon>['name'];
-//   };
-  
-//   const ButtonIcon = (props: { children: any }) => {
-//     // const { size } = useContext(ButtonContext.context);
-//     // const smaller = getSize(size, {
-//     // shift: -2,
-//     // });
-//     // const theme = useTheme();
-//     return isValidElement(props.children)
-//       ? cloneElement(props.children, {
-//           // size: smaller.val * 0.5,
-//           // color: theme.color.get(),
-//         })
-//       : null;
-//   };
-  
-//   export const Button = withStaticProperties(ButtonFrame, {
-//     Props: ButtonContext.Provider,
-//     Text: ButtonText,
-//     Icon: ButtonIcon,
-//   });
-import {Button} from 'tamagui';
+//   createStyledContext,
+//   getVariableValue,
+//   spacedChildren,
+//   styled,
+//   useProps,
+// } from '@tamagui/web'
+// import type { FunctionComponent } from 'react'
+// import { useContext } from 'react'
+// type ButtonVariant = 'outlined'
 
-export const My= () => {
-  return (
-    <Button>
-      click me
-    </Button>
-  )
-}
+// export const ButtonContext = createStyledContext<
+//   Partial<
+//     TextContextStyles & {
+//       size: SizeTokens
+//       variant?: ButtonVariant
+//     }
+//   >
+// >({
+//   // keeping these here means they work with styled() passing down color to text
+//   color: undefined,
+//   ellipse: undefined,
+//   fontFamily: undefined,
+//   fontSize: undefined,
+//   fontStyle: undefined,
+//   fontWeight: undefined,
+//   letterSpacing: undefined,
+//   maxFontSizeMultiplier: undefined,
+//   size: undefined,
+//   textAlign: undefined,
+//   variant: undefined,
+// })
+
+
+// type ButtonProps =  GetProps<typeof ButtonFrame>
+
+// const BUTTON_NAME = 'Button'
+
+// const ButtonFrame = styled(ThemeableStack, {
+//   name: BUTTON_NAME,
+//   // tag: 'button',
+//   // context: ButtonContext,
+//   // role: 'button',
+//   focusable: true,
+//   alignItems: 'center',
+//   flexDirection: 'row',
+//   cursor: 'pointer',
+//   borderWidth: 1,
+//   backgroundColor: '#353B45', 
+//   borderRadius: '$1',
+
+//   hoverStyle: {
+//     backgroundColor: '#404754',
+//     borderColor:'none',
+//     cursor: 'pointer',
+//   },
+//   pressStyle: {
+//     backgroundColor: '#4C5362',
+//     borderColor:'none'
+//   },
+
+//   focusVisibleStyle: {
+//     backgroundColor: '#404754',
+//   //   borderColor: '$borderColorFocus',
+//   },
+
+//   variants: {
+//     // outlined: {
+//     //   true:{
+//     //     size: '$true',
+//     //     // alignItems: 'center',
+//     //     // flexDirection: 'row',
+//     //     cursor: 'pointer',
+//     //     borderWidth: 1,
+//     //     backgrounded: true,
+//     //     backgroundColor: '#353B45', 
+//     //     borderRadius: '$1',
+//     //     hoverStyle: {
+//     //       backgroundColor: '#404754',
+//     //       borderColor:'none',
+//     //       cursor: 'pointer',
+//     //     },
+
+//     //     pressStyle: {
+//     //       backgroundColor: '#4C5362',
+//     //       borderColor:'none'
+//     //     },
+
+//     //     focusVisibleStyle: {
+//     //       backgroundColor: '#404754',
+//     //     //   borderColor: '$borderColorFocus',
+//     //   },
+//     //   }
+//     // },
+//     Primary:{
+//       true:{
+//         backgroundColor:'#095AD2',
+//         hoverStyle: {
+//           backgroundColor: '#10529E',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#01336B',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#095AD2',
+//         },
+//       },
+//     },
+//     Danger:{
+//       true:{
+//         backgroundColor:'#BB3E4E',
+//         hoverStyle: {
+//           backgroundColor: '#95323F',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#822C37',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#BB3E4E',
+//         },
+      
+//       },
+      
+//     },
+//     Warning:{
+//       true:{
+//         //font color:'FFFFFF',
+//         backgroundColor:'#B08C30',
+//         hoverStyle: {
+//           backgroundColor: '#C7AA66',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#01336B',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#095AD2',
+//         },
+      
+//       },
+      
+//     },
+//     Success:{
+//       true:{
+//         backgroundColor:'#1D7256',
+//         hoverStyle: {
+//           backgroundColor: '#175943',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#134937',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#1D7256',
+//         },
+      
+//       },
+      
+//     },
+//     Secondary:{
+//       true:{
+//         backgroundColor:'#353B45',
+//         hoverStyle: {
+//           backgroundColor: '#404754',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#4C5362',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#353B45',
+//         },
+//       },
+//     },
+//     SecondaryDanger:{
+//       true:{
+//         backgroundColor:'#353B45',
+//         hoverStyle: {
+//           backgroundColor: '#404754',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#4C5362',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#353B45',
+//         },
+//       },
+//     },
+//     SecondaryWarning:{
+//       true:{
+//         // font color:'FEEFBE',  
+
+//         backgroundColor:'#e1e1e1',
+//         hoverStyle: {
+//           backgroundColor: '#404754',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#4C5362',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#404754',
+//         },
+//       },
+//     },
+//     // 404754,4C5362,404754
+//     SecondarySuccess:{
+//       true:{
+//         backgroundColor:'#e1e1e1',
+//         hoverStyle: {
+//           backgroundColor: '#404754',
+//           borderColor:'none',
+//           cursor: 'pointer',
+//         },
+      
+//         pressStyle: {
+//           backgroundColor: '#4C5362',
+//           borderColor:'none'
+//         },
+      
+//         focusVisibleStyle: {
+//           backgroundColor: '#404754',
+//         },
+//       },
+//     },
+//     size: {
+//       '...size': getButtonSized,
+//       ':number': getButtonSized,
+//       sm: {
+//         paddingVertical: 6,
+//         paddingHorizontal: 12,
+//         height: 32,
+//         fontSize: 14,
+//       },
+//       md: {
+//         paddingVertical: 8,
+//         paddingHorizontal: 16,
+//         height: 40,
+//         fontSize: 16,
+//       },
+//       lg: {
+//         paddingVertical: 10,
+//         paddingHorizontal: 20,
+//         height: 48,
+//         fontSize: 18,
+//       },
+//     },
+
+//     disabled: {
+//       true: {
+//         cursor: 'not-allowed',
+//         pointerEvents: 'none',
+//         backgroundColor: '#353B45',          
+//         borderRadius: '$2',
+//         hoverStyle: {
+//           cursor: 'not-allowed',
+//           backgroundColor: '#404754',
+//           borderColor:'none'
+//         },
+
+//         focusVisibleStyle: {
+//           backgroundColor: '#353B45',
+//         //   borderColor: '$borderColorFocus',
+//         },
+//       },
+//     },
+//   } as const,
+
+//   // defaultVariants: {
+//   //   outlined:'true',
+//   // },
+// })
+
+// const ButtonText = styled(SizableText, {
+//   name: 'Button',
+//   context: ButtonContext,
+//   variants: {
+//     disabled:{
+//       true:{
+//         userSelect: 'none',
+//         cursor: 'pointer',
+//         // flexGrow 1 leads to inconsistent native style where text pushes to start of view
+//         flexGrow: 0,
+//         flexShrink: 1,
+//         ellipse: true,
+//         color: 'black',
+//       }
+//     },
+//     Danger: {
+//       true: {
+//         color: 'blueDark', // slightly off-white
+//       },
+//     },
+//     outline: {
+//       true: {
+//         userSelect: 'none',
+//         cursor: 'pointer',
+//         // flexGrow 1 leads to inconsistent native style where text pushes to start of view
+//         flexGrow: 0,
+//         flexShrink: 1,
+//         ellipse: true,
+//         color: 'black',
+//       },
+//     },
+    
+//   } as const,
+
+//   // defaultVariants: {
+//   //   Danger: true,
+//   // },
+// })
+
+// const ButtonIcon = (props: { children: React.ReactNode; scaleIcon?: number }) => {
+//   const { children, scaleIcon = 1 } = props
+//   const { size, color } = useContext(ButtonContext)
+
+//   const iconSize =
+//     (typeof size === 'number' ? size * 0.5 : getFontSize(size as FontSizeTokens)) *
+//     scaleIcon
+
+//   const getThemedIcon = useGetThemedIcon({ size: iconSize, color: color as any })
+//   return getThemedIcon(children)
+// }
+
+
+// const ButtonComponent = ButtonFrame.styleable<ButtonExtraProps>(
+//   function Button(props, ref) {
+//     // @ts-ignore
+//     const { props: buttonProps } = useButton(props)
+
+//     return <ButtonFrame data-disable-theme {...buttonProps} ref={ref} >
+      
+//       </ButtonFrame>
+//   }
+// )
+
+
+// /**
+//  * @summary A Button is a clickable element that can be used to trigger actions such as submitting forms, navigating to other pages, or performing other actions.
+//  * @see — Docs https://tamagui.dev/ui/button
+//  */
+// const Button = withStaticProperties(ButtonComponent, {
+//   Text: ButtonText,
+//   Icon: ButtonIcon,
+// })
+
+// /**
+//  * @deprecated Instead of useButton, see the Button docs for the newer and much improved Advanced customization pattern: https://tamagui.dev/docs/components/button
+//  */
+// function useButton<Props extends ButtonProps>(
+//   { textProps, ...propsIn }: Props,
+//   { Text = Button.Text }: { Text: any } = { Text: Button.Text }
+// ) {
+//   const isNested = useContext(ButtonNestingContext)
+//   const propsActive = useProps(propsIn, {
+//     noNormalize: true,
+//     noExpand: true,
+//   }) as any as ButtonProps
+
+//   // careful not to destructure and re-order props, order is important
+//   const {
+//     icon,
+//     iconAfter,
+//     space,
+//     spaceFlex,
+//     scaleIcon = 1,
+//     scaleSpace = 0.66,
+//     separator,
+//     noTextWrap,
+//     fontFamily,
+//     fontSize,
+//     fontWeight,
+//     fontStyle,
+//     letterSpacing,
+//     tag,
+//     ellipse,
+//     maxFontSizeMultiplier,
+
+//     ...restProps
+//   } = propsActive
+
+//   const size = propsActive.size || (propsActive.unstyled ? undefined : '$true')
+
+//   const color = propsActive.color as any
+
+//   const iconSize =
+//     (typeof size === 'number'
+//       ? size * 0.5
+//       : getFontSize(size as FontSizeTokens, {
+//           font: fontFamily?.[0] === '$' ? (fontFamily as any) : undefined,
+//         })) * scaleIcon
+
+//   const getThemedIcon = useGetThemedIcon({
+//     size: iconSize,
+//     color,
+//   })
+
+//   const [themedIcon, themedIconAfter] = [icon, iconAfter].map(getThemedIcon)
+//   const spaceSize = space ?? getVariableValue(iconSize) * scaleSpace
+//   const contents = noTextWrap
+//     ? [propsIn.children]
+//     : wrapChildrenInText(
+//         Text,
+//         {
+//           children: propsIn.children,
+//           fontFamily,
+//           fontSize,
+//           textProps,
+//           fontWeight,
+//           fontStyle,
+//           letterSpacing,
+//           ellipse,
+//           maxFontSizeMultiplier,
+//         },
+//         Text === ButtonText && propsActive.unstyled !== true
+//           ? {
+//               unstyled: process.env.TAMAGUI_HEADLESS === '1',
+//               size,
+//             }
+//           : undefined
+//       )
+
+//   const inner = spacedChildren({
+//     // a bit arbitrary but scaling to font size is necessary so long as button does
+//     space: spaceSize === false ? 0 : spaceSize == true ? '$true' : spaceSize,
+//     spaceFlex,
+//     ensureKeys: true,
+//     separator,
+//     direction:
+//       propsActive.flexDirection === 'column' ||
+//       propsActive.flexDirection === 'column-reverse'
+//         ? 'vertical'
+//         : 'horizontal',
+//     // for keys to stay the same we keep indices as similar a possible
+//     // so even if icons are undefined we still pass them
+//     children: [themedIcon, ...contents, themedIconAfter],
+//   })
+
+//   const props = {
+//     size,
+//     ...(propsIn.disabled && {
+//       // in rnw - false still has keyboard tabIndex, undefined = not actually focusable
+//       focusable: undefined,
+//       // even with tabIndex unset, it will keep focusVisibleStyle on web so disable it here
+//       focusVisibleStyle: {
+//         borderColor: '$background',
+//       },
+//     }),
+//     // fixes SSR issue + DOM nesting issue of not allowing button in button
+//     tag:
+//       tag ??
+//       (isNested
+//         ? 'span'
+//         : // defaults to <a /> when accessibilityRole = link
+//           // see https://github.com/tamagui/tamagui/issues/505
+//           propsActive.accessibilityRole === 'link' || propsActive.role === 'link'
+//           ? 'a'
+//           : 'button'),
+
+//     ...restProps,
+
+//     children: (
+//       <ButtonNestingContext.Provider value={true}>{inner}</ButtonNestingContext.Provider>
+//     ),
+//     // forces it to be a runtime pressStyle so it passes through context text colors
+//     disableClassName: true,
+//   } as Props
+
+//   return {
+//     spaceSize,
+//     isNested,
+//     props,
+//   }
+// }
+
+// export {
+//   Button ,
+//   ButtonFrame,
+//   ButtonIcon,
+//   ButtonText,
+//   // legacy
+//   useButton,
+// }
+// export type { ButtonProps }
