@@ -1,7 +1,7 @@
 // import type { Meta, StoryObj } from "@storybook/react";
 import type { Meta } from "@storybook/react";
-import {Button} from 'tamagui';
-// import {Button} from './Button';
+// import {Button} from 'tamagui';
+import {Button} from './Button';
 import type { StoryFn} from '@storybook/react';
 // import {ZButton,ButtonText,ButtonIcon} from './CustomButton';
 // import {Spinner,XStack,YStack,Anchor, ButtonFrame,Button as TamaguiButton} from 'tamagui';
