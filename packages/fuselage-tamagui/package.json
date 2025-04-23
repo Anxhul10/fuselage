@@ -12,12 +12,13 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@tamagui/config": "~1.126.1",
-    "@tamagui/core": "~1.126.1",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@tamagui/config": "^1.126.1",
+    "@tamagui/core": "^1.126.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-native-web": "~0.20.0",
-    "tamagui": "~1.126.1"
+    "react-native-web": "^0.20.0",
+    "tamagui": "^1.126.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3",
@@ -31,22 +32,23 @@
     "@storybook/test": "^8.6.12",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "@types/react-native-web": "^0",
     "@vitejs/plugin-react": "^4.3.4",
-    "@vitest/browser": "~3.1.2",
-    "@vitest/coverage-v8": "~3.1.2",
+    "@vitest/browser": "^3.1.2",
+    "@vitest/coverage-v8": "^3.1.2",
     "eslint": "^9.22.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
-    "eslint-plugin-storybook": "~0.12.0",
+    "eslint-plugin-storybook": "^0.12.0",
     "globals": "^16.0.0",
-    "playwright": "~1.52.0",
+    "playwright": "^1.52.0",
     "storybook": "^8.6.12",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.3.1",
-    "vitest": "~3.1.2"
+    "vite-plugin-node-polyfills": "^0.23.0",
+    "vitest": "^3.1.2"
   },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "eslintConfig": {
     "extends": [
       "plugin:storybook/recommended"
