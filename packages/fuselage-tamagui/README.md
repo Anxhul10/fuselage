@@ -1,92 +1,127 @@
-<!--header-->
+# 🚀 Tamagui + Vite + Storybook Setup
 
-<p align="center">
-  <a href="https://rocket.chat" title="Rocket.Chat">
-    <img src="https://github.com/RocketChat/Rocket.Chat.Artwork/raw/master/Logos/2020/png/logo-horizontal-red.png" alt="Rocket.Chat" />
-  </a>
-</p>
-
-# `fuselage-tamagui`
+This project demonstrates how to set up **Tamagui** with **Vite** and **Storybook** from scratch.  
+The main purpose was to test if Tamagui can be configured and rendered properly using Vite and Storybook.
 
 ---
 
-[![npm@latest](https://img.shields.io/npm/v/fuselage-tamagui/latest?style=flat-square)](https://www.npmjs.com/package/fuselage-tamagui/v/latest) [![npm@next](https://img.shields.io/npm/v/fuselage-tamagui/next?style=flat-square)](https://www.npmjs.com/package/fuselage-tamagui/v/next) [![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://rocketchat.github.io/fuselage/fuselage-tamagui) ![npm downloads](https://img.shields.io/npm/dw/fuselage-tamagui?style=flat-square) ![License: undefined](https://img.shields.io/npm/l/fuselage-tamagui?style=flat-square)
+## 🛠️ Tech Stack
 
-![deps](https://img.shields.io/librariesio/release/npm/fuselage-tamagui?style=flat-square) ![npm bundle size](https://img.shields.io/bundlephobia/min/fuselage-tamagui?style=flat-square)
+- [Tamagui](https://tamagui.dev/)
+- [Vite](https://vitejs.dev/)
+- [Storybook](https://storybook.js.org/)
+- React
 
-<!--/header-->
+---
 
-## Install
+## 📦 Installation & Setup
 
-<!--install-->
+### 1. Create a Vite Project
 
-Add `fuselage-tamagui` as a dependency:
-
-```sh
-npm i fuselage-tamagui
-
-# or, if you are using yarn:
-
-yarn add fuselage-tamagui
+```bash
+yarn create vite
 ```
 
-<!--/install-->
+### 2. Install Tamagui Dependencies
 
-## Contributing
-
-<!--contributing(msg)-->
-
-Contributions, issues, and feature requests are welcome!<br />
-Feel free to check the [issues](https://github.com/RocketChat/fuselage/issues).
-
-<!--/contributing(msg)-->
-
-### Building
-
-As this package dependends on others in this monorepo, before anything run the following at the root directory:
-
-<!--yarn(build)-->
-
-```sh
-yarn build
+```bash
+yarn add @tamagui/config @tamagui/core tamagui react-native-web
 ```
 
-<!--/yarn(build)-->
+### 3. Create `tamagui.config.ts` in the Root Directory
 
-### Linting
+```ts
+// tamagui.config.ts
+import { defaultConfig } from '@tamagui/config/v4'
+import { createTamagui } from '@tamagui/core'
 
-To ensure the source is matching our coding style, we perform [linting](https://en.wikipedia.org/wiki/Lint_(software)).
-Before commiting, check if your code fits our style by running:
+export const config = createTamagui(defaultConfig)
 
-<!--yarn(lint)-->
+type CustomConfig = typeof config
 
-```sh
-yarn lint
+// ensure types work
+declare module 'tamagui' {
+  interface TamaguiCustomConfig extends CustomConfig {}
+}
 ```
 
-<!--/yarn(lint)-->
+---
 
-Some linter warnings and errors can be automatically fixed:
+### 4. Set Up Storybook
 
-<!--yarn(lint-and-fix)-->
-
-```sh
-yarn lint-and-fix
+```bash
+yarn create storybook@latest
 ```
 
-<!--/yarn(lint-and-fix)-->
+---
 
+### 5. Configure `.storybook/preview.tsx` to Wrap Stories with `TamaguiProvider`
 
+```tsx
+// .storybook/preview.tsx
+import type { Preview } from '@storybook/react'
+import { TamaguiProvider } from 'tamagui'
+import { config } from '../tamagui.config'
+import React from 'react'
 
-### Component stories
+const preview: Preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <TamaguiProvider config={config}>
+        <Story />
+      </TamaguiProvider>
+    ),
+  ],
+}
 
-We develop and describe our visual components in the form of stories, manage by a tool called [Storybook](https://storybook.js.org/).
-To start developing with Storybook, run:
+export default preview
+```
 
-<!--yarn(storybook)-->
+---
 
-```sh
+### 6. Fix `process is not defined` Error When Running Storybook
+
+Add the following to your `vite.config.ts`:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  define: {
+    'process.env': {}, // Fix for Storybook error
+  },
+})
+```
+
+---
+
+## ▶️ Run Storybook
+
+```bash
 yarn storybook
 ```
 
-<!--/yarn(storybook)-->
+---
+
+## 💡 Notes
+
+- This is a minimal setup created for experimental purposes.
+- You can extend this to build reusable Tamagui components and share them via Storybook.
+- Feel free to fork or clone this repo as a starting point.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
