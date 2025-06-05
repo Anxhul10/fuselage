@@ -49,3 +49,22 @@ jobs:
             packages/fuselage/storybook-static
             packages/onboarding-ui/storybook-static
             packages/layout/storybook-static
+  test-with-loki:
+    name: Test with loki
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'yarn'
+      
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+      
+      - name: setup loki
+        run: cd packages/fuselage && yarn build-storybook && yarn loki --requireReference --reactUri file:./storybook-static
