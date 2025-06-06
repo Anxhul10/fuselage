@@ -34,7 +34,7 @@ jobs:
       - run: yarn install
         if: steps.yarn-cache.outputs.cache-hit != 'true'
       - run: yarn run ci
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: "storybooks-${{ github.event.number }}"
           path: |
@@ -47,7 +47,7 @@ jobs:
     needs:
       - build-and-test
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: "14.17.6"
       - uses: actions/checkout@v4
@@ -60,7 +60,7 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
       - run: yarn install
         if: steps.yarn-cache.outputs.cache-hit != 'true'
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: "storybooks-${{ github.event.number }}"
           path: packages
