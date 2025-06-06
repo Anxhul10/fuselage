@@ -33,7 +33,10 @@ jobs:
       #       turbo-${{ runner.os }}-
       - run: yarn install
         if: steps.yarn-cache.outputs.cache-hit != 'true'
-      - run: yarn run ci
+      # - run: yarn run ci
+      - run: yarn workspace @rocket.chat/fuselage build-storybook
+      - run: yarn workspace @rocket.chat/fuselage-ui-kit build-storybook
+      - run: yarn workspace @rocket.chat/onboarding-ui build-storybook
       - uses: actions/upload-artifact@v4
         with:
           name: "storybooks-${{ github.event.number }}"
