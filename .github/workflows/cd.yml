@@ -16,19 +16,19 @@ jobs:
     outputs:
       branch-name: ${{ steps.set-branch-name.outputs.branch-name }}
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "14.17.6"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Turbo Cache
         id: turbo-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}
           restore-keys: |
             turbo-${{ runner.os }}-
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: yarn-cache
         with:
           path: |
@@ -39,7 +39,7 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
       - run: yarn run ci
       - run: yarn run docs
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: storybooks
           path: |
@@ -47,7 +47,7 @@ jobs:
             packages/fuselage-ui-kit/storybook-static
             packages/onboarding-ui/storybook-static
       - if: github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: docs
           path: |
@@ -56,7 +56,7 @@ jobs:
           ref='${{ github.ref }}'
           echo "::set-output name=branch-name::$(echo "${ref:11}")"
         id: set-branch-name
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build
           path: packages/**/dist/*
@@ -67,22 +67,22 @@ jobs:
     needs:
       - build-and-test
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "14.17.6"
           registry-url: "https://registry.npmjs.org"
           scope: "@rocket.chat"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: yarn-cache
         with:
           path: |
             **/node_modules
             .yarn/cache
           key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: build
           path: packages
@@ -107,15 +107,15 @@ jobs:
       name: github-pages
       url: "https://rocketchat.github.io/Rocket.Chat.Fuselage/fuselage/${{ needs.build-and-test.outputs.branch-name }}"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: gh-pages
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: storybooks
           path: packages
       - if: github.ref == 'refs/heads/master'
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: docs
           path: .
@@ -125,7 +125,7 @@ jobs:
           mv -v "packages/fuselage-ui-kit/storybook-static" "fuselage-ui-kit/${{ needs.build-and-test.outputs.branch-name }}"
           mv -v "packages/onboarding-ui/storybook-static" "onboarding-ui/${{ needs.build-and-test.outputs.branch-name }}"
           rm -rf packages
-      - uses: crazy-max/ghaction-github-pages@v2
+      - uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
           build_dir: .
