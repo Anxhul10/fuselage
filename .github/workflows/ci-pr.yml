@@ -27,7 +27,16 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
       - run: yarn install
         if: steps.yarn-cache.outputs.cache-hit != 'true'
-      - uses: actions/download-artifact@v4
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: storybooks
+          path: |
+            packages/fuselage/storybook-static
+            packages/fuselage-ui-kit/storybook-static
+            packages/onboarding-ui/storybook-static
+
+      - uses: actions/download-artartifactifact@v4
         with:
           name: "storybooks-${{ github.event.number }}"
           path: packages
