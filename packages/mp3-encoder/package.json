@@ -40,9 +40,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "lamejs": "https://github.com/zhuker/lamejs.git#commit=564612b5b57336238a5920ba4c301b49f7cb2bab"
-  },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/plugin-transform-runtime": "^7.16.0",
