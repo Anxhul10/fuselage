@@ -1,24 +1,13 @@
-name: "Chromatic"
-
-on: push
-
 jobs:
   chromatic:
-    name: Run Chromatic
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.14.0
-      - name: Install dependencies
-        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
-        run: yarn install
-      - name: Run Chromatic
+      # ... other steps
+
+      - name: Publish Project 1 to Chromatic
         uses: chromaui/action@latest
         with:
-          # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
-          projectToken: ${{ chpt_baaa92a29d8b0e1 }}
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: chpt_baaa92a29d8b0e1
+          workingDir: packages/fuselage-toastbar 
+
