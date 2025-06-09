@@ -1,3 +1,10 @@
+name: Chromatic CI
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
 jobs:
   chromatic:
     runs-on: ubuntu-latest
