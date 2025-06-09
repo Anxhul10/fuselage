@@ -13,6 +13,7 @@ jobs:
 
       - name: Publish Project 1 to Chromatic
         uses: chromaui/action@latest
+        run: ls
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: chpt_baaa92a29d8b0e1
