@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # ... other steps
-
-      - name: Publish Project 1 to Chromatic
-        uses: chromaui/action@latest
-        run: packages/fuselage-toastbar
-        with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: chpt_baaa92a29d8b0e1
+      - run: ls
+      - run: pwd
+      # - name: Publish Project 1 to Chromatic
+      #   uses: chromaui/action@latest
+      #   with:
+      #     # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+      #     projectToken: chpt_baaa92a29d8b0e1
 
