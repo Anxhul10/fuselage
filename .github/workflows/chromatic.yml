@@ -16,5 +16,5 @@ jobs:
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: chpt_baaa92a29d8b0e1
-          workingDir: ./packages/fuselage-toastbar 
+          workingDir: ${{ github.workspace }}/packages/fuselage-toastbar
 
