@@ -1,0 +1,28 @@
+[1m@storybook/core v8.6.12
+[22m
+info => Cleaning outputDir: [36m../../../../../../../tmp/chromatic--588952-XyyStDUaBLMV[39m
+info => Loading presets
+info => Building manager..
+info => Manager built ([38;2;181;126;229m174 ms[39m)
+info => Building preview..
+WARN No story files found for the specified pattern: [34msrc/**/stories.tsx[39m
+info Addon-docs: using MDX3
+info => Using implicit CSS loaders
+info => Using default Webpack5 setup
+info Using tsconfig paths for react-docgen
+WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+WARN This can impact web performance.
+WARN Assets: 
+WARN   static/media/rocketchat.23f51738.svg (504 KiB)
+WARN   main.67a8af52.iframe.bundle.js (1.17 MiB)
+WARN   889.366442d1.iframe.bundle.js (3.21 MiB)
+WARN   930.af0c8a92.iframe.bundle.js (931 KiB)
+WARN entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+WARN Entrypoints:
+WARN   main (4.38 MiB)
+WARN       runtime~main.3a9afb96.iframe.bundle.js
+WARN       889.366442d1.iframe.bundle.js
+WARN       main.67a8af52.iframe.bundle.js
+WARN 
+info => Preview built ([38;2;181;126;229m18 s[39m)
+info => Output directory: /tmp/chromatic--588952-XyyStDUaBLMV
