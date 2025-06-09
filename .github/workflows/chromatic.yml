@@ -9,7 +9,8 @@ jobs:
   chromatic:
     runs-on: ubuntu-latest
     steps:
-      # ... other steps
+      # ... other step
+      - uses: actions/checkout@v4
       - run: ls
       - run: pwd
       # - name: Publish Project 1 to Chromatic
