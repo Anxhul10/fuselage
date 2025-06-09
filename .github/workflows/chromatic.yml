@@ -11,6 +11,8 @@ jobs:
     steps:
       # ... other step
       - uses: actions/checkout@v4
+      - name: yarn install
+        run: yarn install
       - run: ls
       - run: pwd
       - name: Publish Project 1 to Chromatic
@@ -18,5 +20,5 @@ jobs:
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: chpt_baaa92a29d8b0e1
-          working-directory: packages/fuselage-toastbar
+          workingDir: packages/fuselage-toastbar
 
