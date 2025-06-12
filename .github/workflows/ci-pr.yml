@@ -39,8 +39,6 @@ jobs:
           key: turbo-${{ runner.os }}-${{ github.job }}
           restore-keys: |
             turbo-${{ runner.os }}-
-      - name: get the configs
-        run: yarn config -v && yarn config -l
       - run: yarn
         if: steps.yarn-cache.outputs.cache-hit != 'true'
       - run: yarn run ci
