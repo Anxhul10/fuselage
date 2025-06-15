@@ -39,7 +39,8 @@
     "test": "jest --runInBand",
     "docs": "typedoc",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",    
+    "test:loki:smart": "./loki-smart.sh"
   },
   "dependencies": {
     "react-timing-hooks": "~4.0.2"
