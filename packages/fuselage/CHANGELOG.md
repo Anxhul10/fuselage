@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.65.0
+
+### Minor Changes
+
+- [#1701](https://github.com/RocketChat/fuselage/pull/1701) [`3837986`](https://github.com/RocketChat/fuselage/commit/3837986eef96d8c8e6571002cfd10e59f1691615) Thanks [@dougfabris](https://github.com/dougfabris)! - feat(fuselage): Sidepanel visual updates
+
 ## 0.64.0
 
 ### Minor Changes
