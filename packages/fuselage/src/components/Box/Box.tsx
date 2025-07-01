@@ -20,7 +20,7 @@ export interface BoxProps
   extends Partial<StylingProps>,
     Omit<
       AllHTMLAttributes<HTMLElement>,
-      'ref' | 'is' | 'className' | 'size' | 'elevation' | keyof StylingProps
+      'ref' | 'is' | 'className' | 'size' | 'elevation' | 'another type' | keyof StylingProps
     >,
     Omit<
       SVGAttributes<SVGElement>,
