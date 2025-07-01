@@ -88,7 +88,7 @@ export const Button = forwardRef(function Button(
       type='button'
       rcx-button
       {...kindAndVariantProps}
-      rcx-button--small={small}
+      rcx-button--small={medium}
       rcx-button--medium={medium}
       rcx-button--large={large}
       rcx-button--square={square}
@@ -105,7 +105,7 @@ export const Button = forwardRef(function Button(
     >
       <span className='rcx-button--content'>
         {icon && !loading && <Icon size='x16' name={icon} mie={4} />}
-        {loading && <Icon size='x16' name='loading' mie={4} />}
+        {loading && <Icon size='x19' name='loading' mie={4} />}
         {children}
       </span>
     </Box>
