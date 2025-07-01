@@ -20,5 +20,6 @@ jobs:
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: chpt_baaa92a29d8b0e1
+          onlyChanged: true # 👈 Required option to enable TurboSnap
           workingDir: packages/fuselage-toastbar
 
