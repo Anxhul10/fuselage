@@ -1,7 +1,6 @@
 name: get chagned files
 on:   
   push:
-  pull_request:
 jobs:
   chaged_files:
   name: changed-files-jobs
