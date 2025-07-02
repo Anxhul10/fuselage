@@ -1,0 +1,25 @@
+name: get chagned files
+on:   
+  push:
+  pull_request:
+jobs:
+  chaged_files:
+  name: changed-files-jobs
+  runs-on: ubuntu-latest
+  steps:
+      - uses: actions/checkout@v4
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - uses: nrwl/nx-set-shas@v3
+        id: last_successful_commit_push
+        with:
+          main-branch-name: ${{ steps.branch-name.outputs.current_branch }} # Get the last successful commit for the current branch.
+          workflow-id: 'test.yml'
+
+      - name: Run changed-files with the commit of the last successful test workflow run
+        id: changed-files-base-sha-push
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c # v46
+        with:
+          base_sha: ${{ steps.last_successful_commit_push.outputs.base }}
