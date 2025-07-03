@@ -3,7 +3,7 @@ import { forwardRef, useMemo } from 'react';
 
 import Box from '../Box';
 import { Icon } from '../Icon';
-zzz
+
 export type ButtonProps = ComponentProps<typeof Box> & {
   primary?: boolean;
   secondary?: boolean;
