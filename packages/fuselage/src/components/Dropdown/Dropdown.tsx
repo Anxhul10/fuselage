@@ -22,7 +22,7 @@ export const Dropdown = forwardRef(function Dropdown<
   ref: Ref<R>,
 ) {
   const notSmall = useMediaQuery('(min-width: 500px)');
-// another change
+
   return notSmall ? (
     <DropdownDesktopWrapper
       reference={reference}

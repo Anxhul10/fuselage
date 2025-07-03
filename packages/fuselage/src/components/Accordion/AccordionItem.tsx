@@ -20,7 +20,7 @@ export type AccordionItemProps = {
   title: ReactNode;
   noncollapsible?: boolean;
 };
-// another change
+
 const AccordionItem = ({
   children,
   defaultExpanded,
