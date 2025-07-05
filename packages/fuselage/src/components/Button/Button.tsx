@@ -26,6 +26,7 @@ export type ButtonProps = ComponentProps<typeof Box> & {
   >;
 
 /**
+ * this is a Button component.
  * Indicates an actionable user action.
  */
 export const Button = forwardRef(function Button(

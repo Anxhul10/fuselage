@@ -27,6 +27,7 @@ export interface BoxProps
       keyof AllHTMLAttributes<HTMLElement> | 'elevation' | keyof StylingProps
     > {
   /**
+   * this si comment
    * The `is` prop is used to render the Box as a different HTML tag. It can also be used to render a different fuselage component.
    */
   is?: ElementType;
