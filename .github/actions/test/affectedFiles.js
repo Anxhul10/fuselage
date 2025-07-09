@@ -1,4 +1,4 @@
-import { readStatsFile } from './readStatsFile.js';
+// import { readStatsFile } from './readStatsFile.js';
 
 const filePath = './dump/compilation-stats.json';
 
