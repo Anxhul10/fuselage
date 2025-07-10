@@ -1,9 +1,7 @@
 import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { getChangedFile } from './git.js';
-import { trimStatsFile } from './src/stats/trimStatsFile.js'
 
-trimStatsFile('./dump/compilation-stats.json');
 const context = github.context;
 
 async function run(context){
@@ -17,12 +15,7 @@ async function run(context){
     }
 }
 run(context);
-// run(localContext);
-// const childProcess = require('child_process');
-// let ps = childProcess.spawn('./index.sh', [],{interactive: true})
-// ps.stdout.on('data', data => {
-//   console.log(`${data}`)
-// })
 core.startGroup('click to see context');
 console.log(context);
 core.endGroup();
+
