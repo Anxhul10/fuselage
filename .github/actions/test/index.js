@@ -1,7 +1,9 @@
 import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { getChangedFile } from './git.js';
+import { trimStatsFile } from './src/stats/trimStatsFile.js'
 
+trimStatsFile('./dump/compilation-stats.json');
 const context = github.context;
 
 async function run(context){
