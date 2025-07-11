@@ -4,27 +4,28 @@ import { getChangedFile } from './src/git/git.js';
 import { copyFiles } from './src/utils/copyFiles.js';
 import { execa } from 'execa';
 
-const {stdout} = await execa`ls -a`;
-console.log(stdout);
 // yarn build-storybook --stats-json gives project-stats.json which has component titles
 // where as index.json gives the webpack base dependency graph
+// index.js run from the root of the project
 const context = github.context;
 const filesToCopy = [
-    {src:'./packages/fuselage/storybook-static/preview-stats.json', dest:'my-stats.json'},
-    // {src:'../../../packages/fuselage-toastbar/storybook-static/index.json', dest:'./dist/fuselage-toastbar-sb.json'},
-    // {src:'../../../packages/onboarding-ui/storybook-static/index.json', dest:'./dist/onboarding-ui-sb.json'},
-    // {src:'../../../packages/layout/storybook-static/index.json', dest:'./dist/layout-sb.json'},
-    // {src:'../../../packages/fuselage/storybook-static/preview-stats.json', dest: './dist/fuselage-stats.json'},
-    // {src:'../../../packages/fuselage-toastbar/storybook-static/preview-stats.json', dest:'./dist/fuselage-toastbar-stats.json'},
-    // {src:'../../../packages/onboarding-ui/storybook-static/preview-stats.json', dest:'./dist/onboarding-ui-stats.json'},
-    // {src:'../../../packages/layout/storybook-static/preview-stats.json', dest:'./dist/layout-stats.json'},
+    {src:'./packages/fuselage/storybook-static/preview-stats.json', dest:'.github/actions/test/dist/fuselage-sb'},
+    {src:'./packages/fuselage-toastbar/storybook-static/index.json', dest:'.github/actions/test/dist/fuselage-toastbar-sb.json'},
+    {src:'./packages/onboarding-ui/storybook-static/index.json', dest:'.github/actions/test/dist/onboarding-ui-sb.json'},
+    {src:'./packages/layout/storybook-static/index.json', dest:'.github/actions/test/dist/layout-sb.json'},
+    {src:'./packages/fuselage/storybook-static/preview-stats.json', dest: '.github/actions/test/dist/fuselage-stats.json'},
+    {src:'./packages/fuselage-toastbar/storybook-static/preview-stats.json', dest:'.github/actions/test/dist/fuselage-toastbar-stats.json'},
+    {src:'./packages/onboarding-ui/storybook-static/preview-stats.json', dest:'.github/actions/test/dist/onboarding-ui-stats.json'},
+    {src:'./packages/layout/storybook-static/preview-stats.json', dest:'.github/actions/test/dist/layout-stats.json'},
 ]
 
 async function run(context){
-    // this is to be put on the if 
+    // later for loop be used in if statement
     for( const {src, dest} of filesToCopy ){
             copyFiles(src, dest);
         }
+    const output = await execa({shell: '/bin/bash'})`cd .github/actions/test/dist && ls`;
+    console.log(output);
     if(context.eventName === 'pull_request'){
         const changedFiles = await getChangedFile(context);
         core.info('\u001b[48;5;6mSuccess');
