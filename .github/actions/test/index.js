@@ -2,6 +2,10 @@ import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { getChangedFile } from './src/git/git.js';
 import { copyFiles } from './src/utils/copyFiles.js';
+import { execa } from 'execa';
+
+const {stdout} = await execa`ls -a`;
+console.log(stdout);
 
 const context = github.context;
 const filesToCopy = [
