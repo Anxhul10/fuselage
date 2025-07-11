@@ -5,14 +5,14 @@ import { copyFiles } from './src/utils/copyFiles.js';
 
 const context = github.context;
 const filesToCopy = [
-    {src:'../../../packages/fuselage/storybook-static/index.json', dest:'./dist/fuselage-sb.json'},
-    {src:'../../../packages/fuselage-toastbar/storybook-static/index.json', dest:'./dist/fuselage-toastbar-sb.json'},
-    {src:'../../../packages/onboarding-ui/storybook-static/index.json', dest:'./dist/onboarding-ui-sb.json'},
-    {src:'../../../packages/layout/storybook-static/index.json', dest:'./dist/layout-sb.json'},
-    {src:'../../../packages/fuselage/storybook-static/preview-stats.json', dest: './dist/fuselage-stats.json'},
-    {src:'../../../packages/fuselage-toastbar/storybook-static/preview-stats.json', dest:'./dist/fuselage-toastbar-stats.json'},
-    {src:'../../../packages/onboarding-ui/storybook-static/preview-stats.json', dest:'./dist/onboarding-ui-stats.json'},
-    {src:'../../../packages/layout/storybook-static/preview-stats.json', dest:'./dist/layout-stats.json'},
+    {src:'./packages/fuselage/storybook-static/preview-stats.json', dest:'my-stats.json'},
+    // {src:'../../../packages/fuselage-toastbar/storybook-static/index.json', dest:'./dist/fuselage-toastbar-sb.json'},
+    // {src:'../../../packages/onboarding-ui/storybook-static/index.json', dest:'./dist/onboarding-ui-sb.json'},
+    // {src:'../../../packages/layout/storybook-static/index.json', dest:'./dist/layout-sb.json'},
+    // {src:'../../../packages/fuselage/storybook-static/preview-stats.json', dest: './dist/fuselage-stats.json'},
+    // {src:'../../../packages/fuselage-toastbar/storybook-static/preview-stats.json', dest:'./dist/fuselage-toastbar-stats.json'},
+    // {src:'../../../packages/onboarding-ui/storybook-static/preview-stats.json', dest:'./dist/onboarding-ui-stats.json'},
+    // {src:'../../../packages/layout/storybook-static/preview-stats.json', dest:'./dist/layout-stats.json'},
 ]
 
 async function run(context){
