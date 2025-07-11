@@ -85,7 +85,7 @@ jobs:
       #       echo "show direcotry "
       #       ls
       #     done
-        working-directory: packages
+        # working-directory: packages
       - name: show directory
         run: ls
       - name: custom action test
