@@ -66,9 +66,21 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
       - run: yarn
         if: steps.yarn-cache.outputs.cache-hit != 'true'
+      - uses: actions/download-artifact@v4
+        with:
+          name: "loki-storybooks-${{ github.event.number }}"
+          path: packages
       - name: dist  
         run: yarn build
         working-directory: ./.github/actions/test
+      - name: generate stats file 
+        run: |
+          for pkg in fuselage fuselage-toastbar onboarding-ui layout; do
+            echo "generating storybook-stats for $pkg"
+            cd $pkg
+            yarn build-storybook --stats-json
+            cd ..
+        working-directory: packages
       - name: custom action test
         uses: ./.github/actions/test
   upload-artifact:
