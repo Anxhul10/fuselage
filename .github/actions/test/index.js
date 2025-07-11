@@ -23,7 +23,6 @@ async function run(context){
     for( const {src, dest} of filesToCopy ){
             copyFiles(src, dest);
         }
-    console.log(output);
     if(context.eventName === 'pull_request'){
         const changedFiles = await getChangedFile(context);
         core.info('\u001b[48;5;6mSuccess');
