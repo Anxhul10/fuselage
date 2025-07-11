@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+// checking change file with path
 import { cx, cxx } from '../../helpers/composeClassNames';
 import { StylingBox } from '../Box';
 import { StylingProps } from '../Box/stylingProps';
