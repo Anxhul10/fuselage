@@ -6,7 +6,8 @@ import { execa } from 'execa';
 
 const {stdout} = await execa`ls -a`;
 console.log(stdout);
-
+// yarn build-storybook --stats-json gives project-stats.json which has component titles
+// where as index.json gives the webpack base dependency graph
 const context = github.context;
 const filesToCopy = [
     {src:'./packages/fuselage/storybook-static/preview-stats.json', dest:'my-stats.json'},
