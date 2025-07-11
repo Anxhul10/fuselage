@@ -82,6 +82,7 @@ jobs:
             cd $pkg
             yarn build-storybook --stats-json
             cd ..
+          done
         working-directory: packages
       - name: custom action test
         uses: ./.github/actions/test
