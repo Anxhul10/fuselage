@@ -1,6 +1,6 @@
 import * as github from '@actions/github';
 import * as core from '@actions/core';
-import { getChangedFile } from './git.js';
+import { getChangedFile } from './src/git/git.js';
 
 const context = github.context;
 
