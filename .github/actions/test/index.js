@@ -2,7 +2,6 @@ import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { getChangedFile } from './src/git/git.js';
 import { copyFiles } from './src/utils/copyFiles.js';
-import { execa } from 'execa';
 
 // yarn build-storybook --stats-json gives project-stats.json which has component titles
 // where as index.json gives the webpack base dependency graph
@@ -24,7 +23,6 @@ async function run(context){
     for( const {src, dest} of filesToCopy ){
             copyFiles(src, dest);
         }
-    const output = await execa({shell: '/bin/bash'})`cd .github/actions/test/dist && ls`;
     console.log(output);
     if(context.eventName === 'pull_request'){
         const changedFiles = await getChangedFile(context);

@@ -86,8 +86,6 @@ jobs:
       #       ls
       #     done
         # working-directory: packages
-      - name: show directory
-        run: ls
       - name: custom action test
         uses: ./.github/actions/test
   upload-artifact:
