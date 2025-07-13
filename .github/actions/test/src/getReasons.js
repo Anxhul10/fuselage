@@ -1,4 +1,5 @@
 import { readStatsFile } from './stats/readStatsFile.js';
+import { getComponentTitle } from './getComponentTitle.js';
 
 const seenModules = new Set();
 // usage
@@ -39,4 +40,8 @@ export const getReasons = async (name, statsPath) => {
 
   return [...affectedStories];
 };
-
+const changedFile = 'css-supports';
+const pkgName = 'fuselage';
+const result = await getReasons(changedFile, `../dist/trimmed-${pkgName}-stats.json`);
+const cmp = await getComponentTitle(result, pkgName);
+console.log(cmp);

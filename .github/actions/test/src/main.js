@@ -1,19 +1,19 @@
 import { getPackageDependentsTree } from './getPackageDependentsTree.js';
 import { getDirectDependencies } from './getDirectDependencies.js';
+import { readStatsFile } from './stats/readStatsFile.js';
+import { getReasons } from './getReasons.js';
+import { getComponentTitle } from './getComponentTitle.js';
+
 // test
 const changedFiles = [
     'packages/fuselage/src/components/Button/Button.tsx',
-    'packages/fuselage/src/components/Box/Box.tsx',
-    'packages/fuselage-toastbar/src/ToastBar.stories.tsx',
-    'packages/css-in-js/index.ts',
-    'packages/anxhul10/css/in/js',
-    'packages/onboarding-ui/src/common/AgreeTermsField.tsx',
-    'packages/layout/src/components/ActionLink/ActionLink.tsx',
-    'packages/layout/src/contexts/LayoutContext.ts'
+    // 'packages/fuselage/src/components/Box/Box.tsx',
+    // 'packages/fuselage-toastbar/src/ToastBar.stories.tsx',
+    // 'packages/css-in-js/index.ts',
+    // 'packages/onboarding-ui/src/common/AgreeTermsField.tsx',
+    // 'packages/layout/src/components/ActionLink/ActionLink.tsx',
+    // 'packages/layout/src/contexts/LayoutContext.ts'
 ]
-const packageNameTemp = 'fuselage';
-const tree = {[packageNameTemp]: getPackageDependentsTree(packageNameTemp)};
-
 //
 const mapPackagesToFilePath = (changedFiles) => {
     const packageToFileMap = {};
@@ -35,16 +35,27 @@ const mapPackagesToFilePath = (changedFiles) => {
     return packageToFileMap;
 }
 
-export const traverseDependencyTree = (tree, parent = null) => {
-  for (const [key, value] of Object.entries(tree)) {
-    if (value === null) {
-        // console.log('current:'+key);
-        // console.log('parent'+parent); // Print the parent when leaf node (null)
-    } else if (typeof value === 'object') {
-      traverseDependencyTree(value, key); // Go deeper, pass current key as parent
+async function getIndirectDeps(currentPkg, parentPkg) {
+    try {
+        const stats = await readStatsFile(`../dist/trimmed-${currentPkg}-stats.json`);
+        for(const module of stats.modules) {
+            if( module.name.split('/')[1] === parentPkg) {
+                // means get the reason section
+                const reasons = await getReasons(module.name,`../dist/trimmed-${currentPkg}-stats.json`);
+                const title = await getComponentTitle(reasons, currentPkg);
+                console.log(module.name);
+                console.log(reasons);
+                console.log(title);
+                // console.log('parentPkg:'+parentPkg);
+                // console.log('childPkg:'+currentPkg);
+            }
+        }
+    } catch(error) {
+        console.log(error.message);
+        console.log('getIndirectDeps error something went wrong')
     }
-  }
-};
+}
+
 
 // this function will return me the set of component-title along with associated packges
 // eg - 
@@ -54,7 +65,7 @@ export const traverseDependencyTree = (tree, parent = null) => {
 // }
 async function mapToPackageSet(changedFiles, pkgName) {
     const dependencyTree = {[pkgName]: getPackageDependentsTree(pkgName)};
-    const getIndirectCmp = traverseDependencyTree(dependencyTree);
+    // const getIndirectCmp = traverseDependencyTree(dependencyTree);
     /*
     {
         'childPackage1: Set(2){'componet1', 'component2'}
@@ -64,7 +75,7 @@ async function mapToPackageSet(changedFiles, pkgName) {
    // changeFiles: array of strings
    // pkgName: string
     const getDirectCmp = await getDirectDependencies(changedFiles, pkgName);
-    console.log(getDirectCmp);
+    // console.log(getDirectCmp);
     console.log('********************')
 }
 
