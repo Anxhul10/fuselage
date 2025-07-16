@@ -144,7 +144,7 @@ export const runner = async (changedFiles)=> {
         const saveIndirectDps = new Array();
         const saveDirectDps = new Array();
         for(const pkgName in map) {
-            if(!map[pkgName].includes('src') && isStoryBookPkg(pkgName)) continue;
+            if(!map[pkgName][0].includes('src') && isStoryBookPkg(pkgName)) continue;
             const chunk = map[pkgName][0].split('/');
             if(chunk.length === 3 && chunk[2] != 'package.json') continue;
             else if(chunk.length === 2 ) continue;
