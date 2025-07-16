@@ -13,6 +13,6 @@ export default {
 
 export const SystemDarkMode: StoryFn<typeof BackgroundLayer> = () => (
   <BackgroundLayer>
-    <Tile>test action</Tile>
+    <Tile>An example tile</Tile>
   </BackgroundLayer>
 );
