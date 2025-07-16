@@ -1,5 +1,6 @@
 import { createAnimationName, createClassName, escapeName } from './names';
 
+// test
 describe('names', () => {
   describe('createAnimationName', () => {
     it('is injective', () => {
