@@ -189,7 +189,11 @@ jobs:
         with:
           node-version: "22.16.0"
       - uses: actions/checkout@v4
-      - run: yarn --frozen-lockfile --non-interactive --silent --ignore-scripts
+      - run: yarn install
+      - name: Prepare docker
+        run: docker pull yukinying/chrome-headless-browser-stable:118.0.5993.117
+      - name: Prepare docker lambda
+        run: yarn pretest
       - name: loki
         run: |
           cd packages/fuselage &&
