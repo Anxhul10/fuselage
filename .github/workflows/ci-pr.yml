@@ -192,8 +192,6 @@ jobs:
       - run: yarn install
       - name: Prepare docker
         run: docker pull yukinying/chrome-headless-browser-stable:118.0.5993.117
-      - name: Prepare docker lambda
-        run: yarn pretest
       - name: loki
         run: |
           cd packages/fuselage &&
