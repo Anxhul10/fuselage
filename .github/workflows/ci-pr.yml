@@ -189,7 +189,7 @@ jobs:
         with:
           node-version: "22.16.0"
       - uses: actions/checkout@v4
-      - run: yarn install
+      - run: yarn --frozen-lockfile --non-interactive --silent --ignore-scripts
       - name: loki
         run: |
           cd packages/fuselage &&
