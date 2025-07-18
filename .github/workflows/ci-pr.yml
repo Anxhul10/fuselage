@@ -191,6 +191,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: yarn install
       - name: loki
-        run: yarn build-storybook && yarn loki --requireReference --reactUri file:./storybook-static
-        working-directoyr: packages/fuselage
+        run: |
+          cd packages/fuselage &&
+          yarn build-storybook && yarn loki --requireReference --reactUri file:./storybook-static
 
