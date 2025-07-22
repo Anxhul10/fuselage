@@ -79,11 +79,6 @@ jobs:
         run: |
           yarn loki test --requireReference --reactUri file:./storybook-static --storiesFilter="Feedback|Paginated"
         working-directory: packages/fuselage
-      - name: fuselage full test
-        if: always()
-        run: |
-          yarn loki test --requireReference --reactUri file:./storybook-static
-        working-directory: packages/fuselage
       - name: custom action test
         uses: ./.github/actions/test
       - name: upload loki images
