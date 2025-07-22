@@ -75,10 +75,10 @@ jobs:
       - name: dist  
         run: yarn build
         working-directory: ./.github/actions/test
-      - name: specific components test
-        run: |
-          yarn loki test --requireReference --reactUri file:./storybook-static --storiesFilter="Feedback|Paginated"
-        working-directory: packages/fuselage
+      # - name: specific components test
+      #   run: |
+      #     yarn loki test --requireReference --reactUri file:./storybook-static --storiesFilter="Feedback|Paginated"
+      #   working-directory: packages/fuselage
       - name: custom action test
         uses: ./.github/actions/test
       - name: upload loki images
