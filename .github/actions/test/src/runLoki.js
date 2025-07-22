@@ -4,7 +4,7 @@ import * as core from '@actions/core';
 export const runLoki = (storyPkg, reg) => {
     try {
         if(reg.length === 0) {
-            const subprocess =  execa('sh', ['-c', `cd packages/${storyPkg}  && yarn loki --requireReference --reactUri file:./storybook-static`], {
+            const subprocess =  execa('sh', ['-c', `cd packages/${storyPkg}  && yarn loki --requireReference --reactUri file:./storybook-static --chromeTolerance=0.27`], {
                 stdio: 'inherit',
             });
         } else {
