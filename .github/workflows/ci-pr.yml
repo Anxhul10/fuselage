@@ -76,7 +76,13 @@ jobs:
         run: yarn build
         working-directory: ./.github/actions/test
       - name: specific components test
-        run: yarn loki test --requireReference --reactUri file:./storybook-static --storiesFilter="Feedback|Paginated"
+        run: |
+          yarn loki test --requireReference --reactUri file:./storybook-static --storiesFilter="Feedback|Paginated"
+        working-directory: packages/fuselage
+      - name: specific components test
+        if: always()
+        run: |
+          yarn loki test --requireReference --reactUri file:./storybook-static --storiesFilter="Paginated"
         working-directory: packages/fuselage
       - name: custom action test
         uses: ./.github/actions/test
