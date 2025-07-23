@@ -7,6 +7,7 @@
     ".github/actions/*"
   ],
   "scripts": {
+    "temp":"some scripts",
     "build": "yarn turbo run build",
     "build-storybook": "yarn turbo run build-storybook --cache-dir=\".turbo\"",
     "changeset": "changeset",
