@@ -39,7 +39,7 @@
     "watch": "jest --watch",
     "docs": "cross-env NODE_ENV=production storybook build -o ../../static/fuselage",
     "build-storybook": "cross-env NODE_ENV=production storybook build",
-    "some-update":"someupdate"
+    "some-update":"someup"
   },
   "dependencies": {
     "@rocket.chat/css-in-js": "workspace:~",
