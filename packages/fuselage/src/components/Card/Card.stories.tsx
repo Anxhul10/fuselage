@@ -42,7 +42,7 @@ export const Vertical: StoryFn<typeof Card> = () => (
     <CardHeader>
       <FramedIcon icon='address-book' info />
       <CardTitle variant='h3' info='Heading info'>
-        Heading 3
+        updated heading
       </CardTitle>
     </CardHeader>
     <CardBody>
