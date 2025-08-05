@@ -38,7 +38,9 @@
     "test": "jest --runInBand",
     "watch": "jest --watch",
     "docs": "cross-env NODE_ENV=production storybook build -o ../../static/fuselage",
-    "build-storybook": "cross-env NODE_ENV=production storybook build"
+    "build-storybook": "cross-env NODE_ENV=production storybook build",
+    "loki:test-ci": "loki test --chromeDockerImage=chinello/alpine-chrome:93 --chromeFlags='--headless --no-sandbox --disable-gpu --disable-features=VizDisplayCompositor' --requireReference --verboseRenderer --reactUri file:./storybook-static",
+    "loki:update": "loki update --chromeDockerImage=chinello/alpine-chrome:93 --chromeFlags='--headless --no-sandbox --disable-gpu --disable-features=VizDisplayCompositor' --requireReference --verboseRenderer --reactUri file:./storybook-static"
   },
   "dependencies": {
     "@rocket.chat/css-in-js": "workspace:~",
