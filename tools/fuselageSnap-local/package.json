@@ -6,7 +6,10 @@
     "lint-and-fix": "lint-and-fix"
   },
   "type": "module",
-  "bin": "bin/index.js",
+  "bin": {
+    "fuselageSnap": "bin/fuselageSnap.js",
+    "fuselageSnap:ci": "bin/fuselageSnap-ci.js"
+  },
   "devDependencies": {
     "eslint": "^9.29.0",
     "lint-all": "workspace:~",

@@ -12670,7 +12670,8 @@ __metadata:
     lint-all: "workspace:~"
     prettier: "npm:~3.5.3"
   bin:
-    fuselagesnap-local: bin/index.js
+    fuselageSnap: bin/fuselageSnap.js
+    "fuselageSnap:ci": bin/fuselageSnap-ci.js
   languageName: unknown
   linkType: soft
 
