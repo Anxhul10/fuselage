@@ -174,7 +174,7 @@
   }
 
   &--primary {
-    @include button.kind-variant(colors.$primary);
+    @include button.kind-variant(colors.$secondary);
   }
 
   &--secondary {
