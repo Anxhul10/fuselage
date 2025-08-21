@@ -28,7 +28,8 @@
     "loki:test": "yarn turbo run loki:test --cache-dir=\".turbo\"",
     "loki:test-ci": "yarn turbo run loki:test-ci --cache-dir=\".turbo\"",
     "update-readme": "update-readme",
-    "fuselageSnap": "fuselagesnap-local"
+    "fuselageSnap": "fuselagesnap-local",
+    "pretest": "something"
   },
   "devDependencies": {
     "@changesets/changelog-github": "~0.5.1",
