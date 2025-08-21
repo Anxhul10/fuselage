@@ -12,7 +12,7 @@
     'tile-border-radius',
     lengths.border-radius(medium)
   );
-  background-color: colors.surface(light);
+  background-color: colors.surface(dark);
 
   @include typography.use-font-scale(p2);
 
