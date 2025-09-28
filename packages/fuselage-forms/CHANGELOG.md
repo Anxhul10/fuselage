@@ -1,5 +1,14 @@
 # @rocket.chat/fuselage-forms
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1740](https://github.com/RocketChat/fuselage/pull/1740) [`fd4847a`](https://github.com/RocketChat/fuselage/commit/fd4847a9a62b33a4c73d5b234c515ec92d9b6c27) Thanks [@gabriellsh](https://github.com/gabriellsh)! - fix(fuselage-forms): Clicking on label does not focus on input
+
+- Updated dependencies [[`fd4847a`](https://github.com/RocketChat/fuselage/commit/fd4847a9a62b33a4c73d5b234c515ec92d9b6c27), [`a1bcbe8`](https://github.com/RocketChat/fuselage/commit/a1bcbe87cec75e4ad3561571e837e3bb0da28886)]:
+  - @rocket.chat/fuselage-hooks@0.38.1
+
 ## 0.1.0
 
 ### Minor Changes
