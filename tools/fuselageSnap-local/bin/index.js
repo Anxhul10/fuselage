@@ -1,9 +1,9 @@
-import { spawn } from 'child_process';
 import { writeFileSync } from 'fs';
 
 import { execa } from 'execa';
 
 import { getAffectedComponents } from '../../../.github/actions/loki/fuselageSnap/src/getAffectedComponents.js';
+import { execCommand } from '../../../.github/actions/loki/fuselageSnap/src/utils/execCommand.js';
 import { mergePkgsObj } from '../../../.github/actions/loki/fuselageSnap/src/getIndirectDependency.js';
 import { trimStatsFile } from '../../../.github/actions/loki/fuselageSnap/src/stats/trimStatsFile.js';
 import { copyFiles } from '../../../.github/actions/loki/fuselageSnap/src/utils/copyFiles.js';
@@ -47,21 +47,6 @@ const filesToCopy = [
   },
 ];
 
-export const execCommand = (command) => {
-  return new Promise((resolve, reject) => {
-    const childProcess = spawn(command, {
-      stdio: 'inherit',
-      shell: true,
-    });
-    childProcess.on('error', (error) => {
-      reject(error);
-    });
-    childProcess.on('exit', () => {
-      resolve();
-    });
-  });
-};
-
 writeFileSync(
   '.github/actions/loki/fuselageSnap/dist/save.json',
   '{"file_names":[]}',
@@ -100,110 +85,111 @@ async function copyFilesToDest(filesToCopy, location) {
 }
 async function run() {
   const buildStoryBookPromises = [];
-  const headCommit = await execa`git rev-parse HEAD`;
-  const changedFiles = await getChangedFileLocal(headCommit.stdout);
-  const storyBookPkgs = new Set();
-  for (const file of changedFiles) {
-    if (file.includes('packages')) {
-      if (file.split('/')[1] === 'fuselage') {
-        storyBookPkgs.add('fuselage');
-        break;
-      }
-      storyBookPkgs.add(file.split('/')[1]);
-      const pkgMap = mergePkgsObj(file.split('/')[1]);
-      for (const pkgName of pkgMap) {
-        storyBookPkgs.add(Object.keys(pkgName)[0]);
-      }
-    }
-    if (file.includes('yarn.lock') || file.includes('package.json')) {
-      storyBookPkgs.add('fuselage');
-    }
-  }
-  for (const pkg of storyBookPkgs) {
-    if (pkg === 'fuselage') {
-      storyBookPkgs.delete('fuselage-toastbar');
-      storyBookPkgs.delete('layout');
-      storyBookPkgs.delete('onboarding-ui');
-    } else if (pkg === 'layout') {
-      storyBookPkgs.delete('fuselage-toastbar');
-      storyBookPkgs.delete('onboarding-ui');
-    }
-  }
-  const storyBookFilesToCopy = [];
-  for (const pkg of storyBookPkgs) {
-    if (pkg === 'fuselage') {
-      buildStoryBookPromises.push(execCommand('yarn build-storybook'));
-      storyBookFilesToCopy.push('fuselage');
-      storyBookFilesToCopy.push('fuselage-toastbar');
-      storyBookFilesToCopy.push('layout');
-      storyBookFilesToCopy.push('onboarding-ui');
-      break;
-    } else if (pkg === 'fuselage-toastbar') {
-      buildStoryBookPromises.push(
-        execCommand('cd packages/fuselage-toastbar && yarn build-storybook'),
-      );
-      storyBookFilesToCopy.push('fuselage-toastbar');
-    } else if (pkg === 'layout') {
-      buildStoryBookPromises.push(
-        execCommand('cd packages/fuselage-toastbar && yarn build-storybook'),
-      );
-      buildStoryBookPromises.push(
-        execCommand('cd packages/onboarding-ui && yarn build-storybook'),
-      );
-      buildStoryBookPromises.push(
-        execCommand('cd packages/layout && yarn build-storybook'),
-      );
-      storyBookFilesToCopy.push('fuselage-toastbar');
-      storyBookFilesToCopy.push('onboarding-ui');
-      storyBookFilesToCopy.push('layout');
-    } else if (pkg === 'onboarding-ui') {
-      buildStoryBookPromises.push(
-        execCommand('cd packages/onboarding-ui && yarn build-storybook'),
-      );
-      storyBookFilesToCopy.push('onboarding-ui');
-    }
-  }
-  await Promise.all(buildStoryBookPromises);
-  if (storyBookFilesToCopy.length > 0) {
-    await copyFilesToDest(filesToCopy, storyBookFilesToCopy);
-  }
-  const data = await getAffectedComponents(changedFiles);
-  const regex = generateRegex(data);
-  const pkgs = ['fuselage', 'fuselage-toastbar', 'layout', 'onboarding-ui'];
+  const headCommit = await execCommand(`git rev-parse HEAD`);
+  console.log(headCommit);
+  // const changedFiles = await getChangedFileLocal(headCommit);
+  // const storyBookPkgs = new Set();
+  // for (const file of changedFiles) {
+  //   if (file.includes('packages')) {
+  //     if (file.split('/')[1] === 'fuselage') {
+  //       storyBookPkgs.add('fuselage');
+  //       break;
+  //     }
+  //     storyBookPkgs.add(file.split('/')[1]);
+  //     const pkgMap = mergePkgsObj(file.split('/')[1]);
+  //     for (const pkgName of pkgMap) {
+  //       storyBookPkgs.add(Object.keys(pkgName)[0]);
+  //     }
+  //   }
+  //   if (file.includes('yarn.lock') || file.includes('package.json')) {
+  //     storyBookPkgs.add('fuselage');
+  //   }
+  // }
+  // for (const pkg of storyBookPkgs) {
+  //   if (pkg === 'fuselage') {
+  //     storyBookPkgs.delete('fuselage-toastbar');
+  //     storyBookPkgs.delete('layout');
+  //     storyBookPkgs.delete('onboarding-ui');
+  //   } else if (pkg === 'layout') {
+  //     storyBookPkgs.delete('fuselage-toastbar');
+  //     storyBookPkgs.delete('onboarding-ui');
+  //   }
+  // }
+  // const storyBookFilesToCopy = [];
+  // for (const pkg of storyBookPkgs) {
+  //   if (pkg === 'fuselage') {
+  //     buildStoryBookPromises.push(execCommand('yarn build-storybook'));
+  //     storyBookFilesToCopy.push('fuselage');
+  //     storyBookFilesToCopy.push('fuselage-toastbar');
+  //     storyBookFilesToCopy.push('layout');
+  //     storyBookFilesToCopy.push('onboarding-ui');
+  //     break;
+  //   } else if (pkg === 'fuselage-toastbar') {
+  //     buildStoryBookPromises.push(
+  //       execCommand('cd packages/fuselage-toastbar && yarn build-storybook'),
+  //     );
+  //     storyBookFilesToCopy.push('fuselage-toastbar');
+  //   } else if (pkg === 'layout') {
+  //     buildStoryBookPromises.push(
+  //       execCommand('cd packages/fuselage-toastbar && yarn build-storybook'),
+  //     );
+  //     buildStoryBookPromises.push(
+  //       execCommand('cd packages/onboarding-ui && yarn build-storybook'),
+  //     );
+  //     buildStoryBookPromises.push(
+  //       execCommand('cd packages/layout && yarn build-storybook'),
+  //     );
+  //     storyBookFilesToCopy.push('fuselage-toastbar');
+  //     storyBookFilesToCopy.push('onboarding-ui');
+  //     storyBookFilesToCopy.push('layout');
+  //   } else if (pkg === 'onboarding-ui') {
+  //     buildStoryBookPromises.push(
+  //       execCommand('cd packages/onboarding-ui && yarn build-storybook'),
+  //     );
+  //     storyBookFilesToCopy.push('onboarding-ui');
+  //   }
+  // }
+  // await Promise.all(buildStoryBookPromises);
+  // if (storyBookFilesToCopy.length > 0) {
+  //   await copyFilesToDest(filesToCopy, storyBookFilesToCopy);
+  // }
+  // const data = await getAffectedComponents(changedFiles);
+  // const regex = generateRegex(data);
+  // const pkgs = ['fuselage', 'fuselage-toastbar', 'layout', 'onboarding-ui'];
 
-  const colorize = (...args) => ({
-    black: `\x1b[30m${args.join(' ')}`,
-    red: `\x1b[31m${args.join(' ')}`,
-    green: `\x1b[32m${args.join(' ')}`,
-    yellow: `\x1b[33m${args.join(' ')}`,
-    blue: `\x1b[34m${args.join(' ')}`,
-    magenta: `\x1b[35m${args.join(' ')}`,
-    cyan: `\x1b[36m${args.join(' ')}`,
-    white: `\x1b[37m${args.join(' ')}`,
-    bgBlack: `\x1b[40m${args.join(' ')}\x1b[0m`,
-    bgRed: `\x1b[41m${args.join(' ')}\x1b[0m`,
-    bgGreen: `\x1b[42m${args.join(' ')}\x1b[0m`,
-    bgYellow: `\x1b[43m${args.join(' ')}\x1b[0m`,
-    bgBlue: `\x1b[44m${args.join(' ')}\x1b[0m`,
-    bgMagenta: `\x1b[45m${args.join(' ')}\x1b[0m`,
-    bgCyan: `\x1b[46m${args.join(' ')}\x1b[0m`,
-    bgWhite: `\x1b[47m${args.join(' ')}\x1b[0m`,
-  });
-  /* eslint-disable no-await-in-loop */
-  for (const pkg of pkgs) {
-    if (regex[`${pkg}`].length === 0) {
-      console.log(
-        colorize(`skipping ${pkg} no affected components found`).bgBlue,
-      );
-    } else if (regex[`${pkg}`] === 'full test') {
-      console.log(colorize(`Running full visual tests for ${pkg}`).bgBlue);
-      await execCommand(`cd packages/${pkg} && yarn loki:test`);
-    } else {
-      console.log(colorize(`Running fuselageSnap for ${pkg}`).bgBlue);
-      await execCommand(
-        `cd packages/${pkg} && yarn loki:test --storiesFilter="${regex[pkg]}"`,
-      );
-    }
-  }
+  // const colorize = (...args) => ({
+  //   black: `\x1b[30m${args.join(' ')}`,
+  //   red: `\x1b[31m${args.join(' ')}`,
+  //   green: `\x1b[32m${args.join(' ')}`,
+  //   yellow: `\x1b[33m${args.join(' ')}`,
+  //   blue: `\x1b[34m${args.join(' ')}`,
+  //   magenta: `\x1b[35m${args.join(' ')}`,
+  //   cyan: `\x1b[36m${args.join(' ')}`,
+  //   white: `\x1b[37m${args.join(' ')}`,
+  //   bgBlack: `\x1b[40m${args.join(' ')}\x1b[0m`,
+  //   bgRed: `\x1b[41m${args.join(' ')}\x1b[0m`,
+  //   bgGreen: `\x1b[42m${args.join(' ')}\x1b[0m`,
+  //   bgYellow: `\x1b[43m${args.join(' ')}\x1b[0m`,
+  //   bgBlue: `\x1b[44m${args.join(' ')}\x1b[0m`,
+  //   bgMagenta: `\x1b[45m${args.join(' ')}\x1b[0m`,
+  //   bgCyan: `\x1b[46m${args.join(' ')}\x1b[0m`,
+  //   bgWhite: `\x1b[47m${args.join(' ')}\x1b[0m`,
+  // });
+  // /* eslint-disable no-await-in-loop */
+  // for (const pkg of pkgs) {
+  //   if (regex[`${pkg}`].length === 0) {
+  //     console.log(
+  //       colorize(`skipping ${pkg} no affected components found`).bgBlue,
+  //     );
+  //   } else if (regex[`${pkg}`] === 'full test') {
+  //     console.log(colorize(`Running full visual tests for ${pkg}`).bgBlue);
+  //     await execCommand(`cd packages/${pkg} && yarn loki:test`);
+  //   } else {
+  //     console.log(colorize(`Running fuselageSnap for ${pkg}`).bgBlue);
+  //     await execCommand(
+  //       `cd packages/${pkg} && yarn loki:test --storiesFilter="${regex[pkg]}"`,
+  //     );
+  //   }
+  // }
 }
 run();
